@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    id="WebApp_ID" version="3.0">
+    <display-name>WP_Esim33x</display-name>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+    <display-name>File Servlet</display-name>
+
+    <description>
+        File Servlet
+    </description>
+
+    <!-- This is our File Service served with XML-RPC -->
+    <servlet>
+        <servlet-name>fileServiceServlet</servlet-name>
+        <servlet-class>server.FileServletServer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>fileServiceServlet</servlet-name>
+        <url-pattern>/file_service</url-pattern>
+    </servlet-mapping>
+
+    <!-- Below is our File Handler using html & js to serve files -->
+    <servlet>
+        <servlet-name>uploadHandler</servlet-name>
+        <servlet-class>handler.UploadHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadHandler</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>downloadHandler</servlet-name>
+        <servlet-class>handler.DownloadHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>downloadHandler</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+
+</web-app>

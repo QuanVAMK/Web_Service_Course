@@ -1,0 +1,14 @@
+# ignore all specified folders
+**/bin
+**/.settings
+**/Servers
+**/RemoteSystemsTempFiles
+**/build
+
+# Ignore all files with specified extension
+*.war
+*.class
+*.jar
+*classpath
+*project
+*metadata
