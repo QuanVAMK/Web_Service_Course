@@ -19,14 +19,14 @@ as much as possible about web service with Java.
 - [Web service course](#web-service-course)
   * [Summary](#summary)
       - [Week 1](#week-1)
-        * [Web service protocol stack:](#web-service-protocol-stack-)
-        * [Requestor Development plan:](#requestor-development-plan-)
-        * [Provider Development plan:](#provider-development-plan-)
-        * [Server+Client Java with XML-RPC](#server-client-java-with-xml-rpc)
+        * [Web service protocol stack](#web-service-protocol-stack)
+        * [Requestor Development plan](#requestor-development-plan)
+        * [Provider Development plan](#provider-development-plan)
+        * [Server+Client Java with XML-RPC](#serverclient-java-with-xml-rpc)
       - [Week 2](#week-2)
-        * [Primitive/Reference type](#primitive-reference-type)
-        * [wrapper class & boxing](#wrapper-class---boxing)
-        * [object comparison & equals()](#object-comparison---equals--)
+        * [Primitive/Reference type](#primitivereference-type)
+        * [wrapper class & boxing](#wrapper-class--boxing)
+        * [object comparison & equals()](#object-comparison--equals)
       - [Week 3](#week-3)
       - [Week 4](#week-4)
       - [Week 5](#week-5)
@@ -114,7 +114,7 @@ int i = iObj.intValue();
 Integer iObj = 5;
 int i = iObj;
 ```
-- When compare 2 wrapper objects, use [equals()](#object-comparison---equals--) but not "==" operator.
+- When compare 2 wrapper objects, use [equals()](#object-comparison--equals) but not "==" operator.
 - The object may be [cached.](https://javarevisited.blogspot.com/2010/10/what-is-problem-while-using-in.html)
 ``` Java 
 Integer i1 = 5; // Autoboxing, call valueOf()
@@ -142,7 +142,7 @@ sum = new Integer(result);
 ##### object comparison & equals()
 - [Source](https://stackoverflow.com/questions/2265503/why-do-i-need-to-override-the-equals-and-hashcode-methods-in-java) where i learn & take these notes.
 - By default, Object are compared with **shallow comparison:** compare whether both object refer to the same memory address.
-- equals() is overriden where you can compare each field of both objects.
+- equals() is overriden where you can compare each field of both objects, which is called **deep comparison**.
 - If both objects are equal according to equals(), then calling hashCode() on each object must produce the same integer result.
   - For Hashing data structures (HashMap, Hashtable, etc), element would be stored in a bucket list with references to a hash code, so comparison methods on that data structure (like HashMap.contains(Element)) would first check the hash code with hashCode() before calling equals().
 
