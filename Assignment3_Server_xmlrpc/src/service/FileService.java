@@ -11,46 +11,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 public class FileService implements IFileService {
-	public static final String uploadDir = "U:/tmp/Upload_Loc/";
-	
-	// Location to upload the file to the Server (must also include the extension).
-	public static final String sourceDir = "U:/tmp/Source_Loc/";
-	
-	public static final String downloadDir = "U:/tmp/Download_Loc/";
+//	public static final String uploadDir = "U:/tmp/Upload_Loc/";
+//	private static final String uploadDir = System.getProperty("catalina.base") + File.separator + "public_files/upload_folder/";
+	private static String uploadDir;
+	public static void setUploadDir(String uploadPath) {
+		FileService.uploadDir = uploadPath;
+	}
 	
 	public static void main(String[] args) {
-//		try {
-//			File fileToUpload = new File(fileToUploadLoc);
-//			byte[] fileContent = Files.readAllBytes(fileToUpload.toPath());
-//			
-//			FileService fs = new FileService();
-//			System.out.println(fs.uploadFile("text_file_example", fileToUploadLoc.substring(fileToUploadLoc.indexOf(".") + 1), fileContent));
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		FileService fs = new FileService();
-		
-		System.out.println(fs.getFileList());
-		
-//		Scanner is = new Scanner(System.in);
-//		System.out.println("Enter the file you wish to download: ");
-//		String inputStr = is.nextLine();
-//		
-//		byte[] fileContent = fs.downloadFile(inputStr);
-//		File downloadedFile = new File(downloadDir + "ex1.txt");
-//		
-//		try {
-//			downloadedFile.createNewFile();
-//			Files.write(downloadedFile.toPath(), fileContent);
-//			System.out.println("Download successful!!");
-//		} catch (IOException e) {
-//			e.getStackTrace();
-//		}
-		
-//		is.close();
-		
-		Hashtable<String, byte[]> files = new Hashtable<String, byte[]>();
-		
+		System.out.println(uploadDir);
 	}
 	
 	/**
@@ -60,13 +29,17 @@ public class FileService implements IFileService {
 	@Override
 	public String getFileList() {
 		File dir = new File(FileService.uploadDir);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		String[] fileNames = dir.list();
 		
 		if (fileNames == null) {
 			return "No file exists on the Server!";
 		}
 		
-		StringBuilder ret = new StringBuilder("List of files: " + System.getProperty("line.separator"));
+		StringBuilder ret = new StringBuilder();
 		for (String fileName : fileNames) {
 			ret.append(fileName + System.getProperty("line.separator"));
 		}
@@ -89,7 +62,7 @@ public class FileService implements IFileService {
 	public String uploadFile(String fileName, String fileExtension, byte[] fileContent) {
 		try {
 			// Create a new file & avoid duplicated file names.
-			File uploadedFileLoc = new File(FileService.uploadDir);
+//			File uploadedFileLoc = new File(FileService.uploadDir);
 //			File uploadedFile = File.createTempFile(fileName + "-", "." + fileExtension, uploadedFileLoc);
 			File uploadedFile = new File(FileService.uploadDir + fileName + "." + fileExtension);
 			

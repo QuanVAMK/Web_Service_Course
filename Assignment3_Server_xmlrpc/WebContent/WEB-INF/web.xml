@@ -1,51 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    id="WebApp_ID" version="3.0">
-    <display-name>WP_Esim33x</display-name>
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
-        <welcome-file>default.html</welcome-file>
-        <welcome-file>default.htm</welcome-file>
-        <welcome-file>default.jsp</welcome-file>
-    </welcome-file-list>
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>WP_Esim33x</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
 
-    <display-name>File Servlet</display-name>
+	<display-name>File Servlet</display-name>
 
-    <description>
+	<description>
         File Servlet
     </description>
 
-    <!-- This is our File Service served with XML-RPC -->
-    <servlet>
-        <servlet-name>fileServiceServlet</servlet-name>
-        <servlet-class>server.FileServletServer</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>fileServiceServlet</servlet-name>
-        <url-pattern>/file_service</url-pattern>
-    </servlet-mapping>
+	<!-- This is our File Service served with XML-RPC -->
+	<servlet>
+		<servlet-name>fileServiceServlet</servlet-name>
+		<servlet-class>server.FileServletServer</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>fileServiceServlet</servlet-name>
+		<url-pattern>/file_service</url-pattern>
+	</servlet-mapping>
 
-    <!-- Below is our File Handler using html & js to serve files -->
-    <servlet>
-        <servlet-name>uploadHandler</servlet-name>
-        <servlet-class>handler.UploadHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>uploadHandler</servlet-name>
-        <url-pattern>/upload</url-pattern>
-    </servlet-mapping>
+	<!-- Below is our File Handler using html & js to serve files -->
+	<servlet>
+		<servlet-name>uploadHandler</servlet-name>
+		<servlet-class>handler.UploadHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>uploadHandler</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
 
-    <servlet>
-        <servlet-name>downloadHandler</servlet-name>
-        <servlet-class>handler.DownloadHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>downloadHandler</servlet-name>
-        <url-pattern>/download</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>downloadHandler</servlet-name>
+		<servlet-class>handler.DownloadHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>downloadHandler</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
+
+    <!-- Only users of manager roles or above could access. -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>File Servlet</web-resource-name>
+			<url-pattern>/file_service</url-pattern>
+		</web-resource-collection>
+		
+		<auth-constraint>
+			<role-name>user</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- Define the login configuration for this application -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+		<!--Realms in Tomcat are databases with user ID and password information. 
+			Realms in Tomcat can be configured via the server.xml or context.xml files. -->
+		<realm-name>Tomcat Manager Application</realm-name>
+	</login-config>
+
+	<!-- Security roles referenced by this web application -->
+	<security-role>
+		<description>
+            The role that is required to log in to the Manager Application
+        </description>
+		<role-name>manager</role-name>
+	</security-role>
 
 </web-app>
